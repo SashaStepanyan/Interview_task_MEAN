@@ -1,0 +1,22 @@
+{
+  "name": "testtask",
+  "version": "1.0.0",
+  "description": "project for ",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "debug": "nodemon --inspect app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/joi": "^16.1.7",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "lodash": "^4.17.15",
+    "mongoose": "^5.7.8"
+  },
+  "devDependencies": {
+    "jshint": "^2.10.3"
+  }
+}

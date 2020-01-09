@@ -1,0 +1,42 @@
+<div class="container">
+    <div class="row">
+      <div class="col-12 pt-4">
+        <table class="m-auto table">
+          <tr class="text-left">
+            <th class="p-0">Firstname</th>
+            <th class="p-0">Lastname</th>
+            <th class="p-0">Email</th>
+            <th class="p-0">
+              <Button (click)="openUserModal('Add')">Add New Row</Button>
+            </th>
+            <hr>
+          </tr>
+          <tr *ngFor="let user of rows" [ngClass]="user.color">
+            <td class="p-0">{{user.firstName}}</td>
+            <td class="p-0">{{user.lastName}}</td>
+            <td class="p-0">{{user.email}}</td>
+            <td class="p-0 pr-0 float-right">
+              <button><i class="fas fa-pencil-alt" (click)="openUserModal('Update', user)"></i></button>
+              <button><i class="fas fa-trash-alt" (click)="deleteUser(confirmDelete, user._id)"></i></button>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #confirmDelete let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Delete User</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>Are you sure you want to delete this user?</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="c()">Delete</button>
+      <button type="button" class="btn btn-outline-dark" (click)="d()">Cancel</button>
+    </div>
+  </ng-template>
