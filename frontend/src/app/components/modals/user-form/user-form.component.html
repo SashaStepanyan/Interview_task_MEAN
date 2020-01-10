@@ -4,29 +4,30 @@
     </button>
   </div>
   <div class="modal-body">
-    <form [formGroup]="userForm">
+    <form [formGroup]="userForm" (ngSubmit)="saveUser(userForm.value)">
+      <span class="text-danger" *ngIf="showError"> Please fill in all required fields.</span>
         <div class="form-group">
-          <label for="firstName">First Name</label>
-          <input type="text" class="form-control" id="firstName" placeholder="John" formControlName="firstName">
+          <label for="firstName">First Name <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" id="firstName" placeholder="John" formControlName="firstName" required>
         </div>
         <div class="form-group">
-          <label for="lastName">Last Name</label>
-          <input type="text" class="form-control" id="lastName" placeholder="Smith" formControlName="lastName">
+          <label for="lastName">Last Name <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" id="lastName" placeholder="Smith" formControlName="lastName" required>
         </div>
         <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" class="form-control" id="email" placeholder="john@smith" formControlName="email">
+          <label for="email">Email <span class="text-danger">*</span></label>
+          <input type="email" class="form-control" id="email" placeholder="john@smith" formControlName="email" required>
         </div>
         <div class="form-group">
             <label class="mr-sm-2" for="color">Color</label>
             <select class="custom-select mr-sm-2" id="color" formControlName="color">
-              <option selected>Choose...</option>
+              <option selected value="">Choose...</option>
               <option *ngFor="let color of colors" [ngClass]="color.color" [value]="color.value">{{color.value}}</option>
             </select>
         </div>
         
         <div class="modal-footer">
-            <button type="button" class="btn btn-outline-dark" (click)="saveUser()">{{action}}</button>
+            <button type="submit" class="btn btn-outline-dark">{{action}}</button>
         </div>
       </form>
   </div>

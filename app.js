@@ -1,14 +1,15 @@
 const express = require('express');
 const app = express();
+const path = require('path');
 
 require('./startup/routes')(app);
 require('./startup/db')();
 
 
-app.use(express.static('public'));
+app.use(express.static('public/crud'));
 
 app.get('/', (req, res) => {
-    res.send('Comming soon...');
+    res.sendFile(path.join(__dirname + '/public/crud/index.html'));
 });
 
 

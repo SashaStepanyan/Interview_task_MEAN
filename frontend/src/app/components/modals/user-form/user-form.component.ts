@@ -1,15 +1,14 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsersService } from 'src/app/services/users.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { User } from 'src/app/models/user';
 @Component({
   selector: 'app-user-form',
   templateUrl: './user-form.component.html',
   styleUrls: ['./user-form.component.css']
 })
 export class UserFormComponent implements OnInit {
-
-
 
   public colors = [
     { color: 'bg-primary', value: 'table-primary' },
@@ -21,20 +20,20 @@ export class UserFormComponent implements OnInit {
     { color: 'bg-light', value: 'table-light' },
   ]
   public userForm: FormGroup;
-  @Input() action;
-  @Input() user;
+  @Input() action: String;
+  @Input() user: User;
+  public showError: boolean = false;
   constructor(private userService: UsersService,
     private formBuilder: FormBuilder,
     private activeModal: NgbActiveModal) { }
 
   ngOnInit() {
     this.userForm = this.formBuilder.group({
-      firstName: [''],
-      lastName: [''],
-      email: [''],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', Validators.required],
       color: ['']
     });
-    console.log(this.user)
     if (this.user) {
       this.userForm.controls['firstName'].setValue(this.user.firstName);
       this.userForm.controls['lastName'].setValue(this.user.lastName);
@@ -43,9 +42,10 @@ export class UserFormComponent implements OnInit {
     }
   }
 
-  public saveUser() {
-    if (this.action === 'add') {
-      this.userService.createUser(this.userForm.value).subscribe(res => {
+  public saveUser(body) {
+    if(!this.userForm.valid) return this.showError=true;
+    if (this.action === 'Add') {
+      this.userService.createUser(body).subscribe(res => {
         if (res.success) {
           this.activeModal.close()
         }
@@ -53,7 +53,7 @@ export class UserFormComponent implements OnInit {
         console.log(err)
       })
     } else {
-      this.userService.updateUser(this.userForm.value, this.user._id).subscribe(res => {
+      this.userService.updateUser(body, this.user._id).subscribe(res => {
         if (res.success) {
           this.activeModal.close()
         }
@@ -66,7 +66,5 @@ export class UserFormComponent implements OnInit {
   public closeModal() {
     this.activeModal.dismiss()
   }
-
-
 
 }

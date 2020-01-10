@@ -16,8 +16,8 @@
             <td class="p-0">{{user.lastName}}</td>
             <td class="p-0">{{user.email}}</td>
             <td class="p-0 pr-0 float-right">
-              <button><i class="fas fa-pencil-alt" (click)="openUserModal('Update', user)"></i></button>
-              <button><i class="fas fa-trash-alt" (click)="deleteUser(confirmDelete, user._id)"></i></button>
+              <button (click)="openUserModal('Update', user)"><i class="fas fa-pencil-alt"></i></button>
+              <button (click)="deleteUser(confirmDelete, user._id)"><i class="fas fa-trash-alt"></i></button>
             </td>
           </tr>
         </table>
